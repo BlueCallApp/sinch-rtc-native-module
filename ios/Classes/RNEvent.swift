@@ -13,6 +13,7 @@ class RNEvent:NSObject{
     @objc public static let CallEndedWithReason = "callEndedWithReason"
     @objc public static let CallDidEstablish = "callDidEstablish"
     @objc public static let CallDidProgress = "callDidProgress"
+    @objc public static let CallServiceSetupDidFail = "callServiceSetupDidFail"
     
     @objc public static let MessageReceived = "didReceiveMessage"
     @objc public static let MessageSent = "didSendMessage"
