@@ -13,4 +13,5 @@ import Foundation
     func callDidProgress()
     func callDidChangeStatus(status:String)
     func callServiceStartupDidFail(message:String)
+    func callServiceStartupDidSucceed()
 }
