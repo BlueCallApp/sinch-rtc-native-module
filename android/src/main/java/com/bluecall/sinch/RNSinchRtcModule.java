@@ -121,10 +121,15 @@ public class RNSinchRtcModule extends ReactContextBaseJavaModule implements Call
 
   @Override
   public void callServiceStartupDidFailWithMessage(String message) {
-    Log.d("SinchModule", "SinchModule callServiceStartupDidFailWithMessage: ");
-    getReactApplicationContext().getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("callServiceSetupDidFail", message);
+    Log.d("SinchModule", "SinchModule callServiceStartupDidFailWithMessage: "+message);
+    getReactApplicationContext().getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onStartupFail", message);
   }
 
+  @Override
+  public void callServiceStartupDidSucceed() {
+    Log.d("SinchModule", "SinchModule callServiceStartupDidSucceed: ");
+    getReactApplicationContext().getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onStartupSucceed", null);
+  }
 
   //Message Delegate
   @Override

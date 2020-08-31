@@ -143,8 +143,8 @@ RCT_EXPORT_METHOD(sendMessage:(NSString *)receiverUserId
     [self sendEventWithName:RNEvent.CallDidProgress body:nil];
 }
 
-- (void)callServiceStartupDidFail:(NSString * _Nonnull)error {
-    [self sendEventWithName:RNEvent.CallServiceSetupDidFail body:@{@"error":error}];
+- (void)callServiceStartupDidFailWithMessage:(NSString *)message{
+    [self sendEventWithName:RNEvent.CallServiceSetupDidFail body:message];
 }
 
 - (void)callServiceStartupDidSucceed{

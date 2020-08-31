@@ -10,5 +10,6 @@ public interface CallDelegate {
     void callDidEstablish();
     void callDidProgress();
     void callServiceStartupDidFailWithMessage(String message);
+    void callServiceStartupDidSucceed();
     void callDidChangeStatus(String status);
 }

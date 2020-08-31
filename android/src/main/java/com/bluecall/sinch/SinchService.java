@@ -274,7 +274,7 @@ public class SinchService extends Service {
 
         @Override
         public void onClientFailed(SinchClient client, SinchError error) {
-            Log.d(TAG, "SinchClient FAILED!!!"+error);
+            Log.d(TAG, "SinchClient startup FAILED"+error);
             if(mCallDelegate != null){
                 mCallDelegate.callServiceStartupDidFailWithMessage(error.getMessage());
             }
@@ -288,6 +288,9 @@ public class SinchService extends Service {
         @Override
         public void onClientStarted(SinchClient client) {
             Log.d(TAG, "SinchClient started");
+            if(mCallDelegate != null){
+                 mCallDelegate.callServiceStartupDidSucceed();
+            }
             if (mListener != null) {
                 mListener.onStarted();
             }
