@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.WritableMap;
 import com.sinch.android.rtc.calling.Call;
 
 /**
@@ -65,9 +67,31 @@ public class PhoneActivityManager implements ServiceConnection {
     }
     public void setDisplayName(String displayName){getSinchServiceInterface().setDisplayName(displayName);}
     public void call(String username, Callback callback){
-        Call call = getSinchServiceInterface().callUser(username);
+        SinchService.SinchServiceInterface sinchServiceInt = getSinchServiceInterface();
+
+
+        WritableMap map = Arguments.createMap();
+        map.putBoolean("isError", true);
+        map.putString("message", "Sinch service was not ready");
+
+        if(sinchServiceInt == null){
+            callback.invoke(map);
+            return;
+        }
+
+        Call call = sinchServiceInt.callUser(username);
+        if(call == null){
+            callback.invoke(map);
+            return;
+        }
+
         String callId = call.getCallId();
-        callback.invoke(callId);
+
+        map.putBoolean("isError", false);
+        map.putString("message", "");
+        map.putString("callId", callId);
+
+        callback.invoke(map);
     }
 
     public void answer() {

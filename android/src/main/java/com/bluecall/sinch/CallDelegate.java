@@ -9,5 +9,7 @@ public interface CallDelegate {
     void callEndedWithReason(String reason, int duration);
     void callDidEstablish();
     void callDidProgress();
+    void callServiceStartupDidFailWithMessage(String message);
+    void callServiceStartupDidSucceed();
     void callDidChangeStatus(String status);
 }

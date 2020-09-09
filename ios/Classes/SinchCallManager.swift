@@ -141,9 +141,11 @@ extension SinchCallManager:SINCallClientDelegate{
 extension SinchCallManager:SINClientDelegate{
     func clientDidStart(_ client: SINClient!) {
         print("Sinch client started successfully (version: \(Sinch.version()))")
+        self.callDelegate?.callServiceStartupDidSucceed();
     }
     func clientDidFail(_ client: SINClient!, error: Error!) {
         print("Sinch client error: \(error.localizedDescription)")
+        self.callDelegate?.callServiceStartupDidFail(message:error.localizedDescription);
     }
 }
 extension SinchCallManager:SINManagedPushDelegate{
@@ -180,8 +182,9 @@ extension SinchCallManager:CallManageable{
         self.push.setDisplayName(name);
     }
     func call(with callParams: CallParams)->String? {
-        
-        guard let call = self.client?.call().callUser(withId: callParams.calleeId) else {return nil;}
+        guard let _client = self.client else {return nil};
+        guard let call = _client.call().callUser(withId: callParams.calleeId) else {return nil;}
+
         self.sinchCall = call;
         self.sinchCall?.delegate = self
         return call.callId;

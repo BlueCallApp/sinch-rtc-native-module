@@ -164,6 +164,7 @@ public class SinchService extends Service {
     public class SinchServiceInterface extends Binder {
 
         public Call callUser(String userId) {
+            if(mSinchClient == null)return null;
             Call call = mSinchClient.getCallClient().callUser(userId);
             mCallManager = new SinchCallManager(call, mCallDelegate);
             return call;
@@ -273,6 +274,10 @@ public class SinchService extends Service {
 
         @Override
         public void onClientFailed(SinchClient client, SinchError error) {
+            Log.d(TAG, "SinchClient startup FAILED"+error);
+            if(mCallDelegate != null){
+                mCallDelegate.callServiceStartupDidFailWithMessage(error.getMessage());
+            }
             if (mListener != null) {
                 mListener.onStartFailed(error);
             }
@@ -283,6 +288,9 @@ public class SinchService extends Service {
         @Override
         public void onClientStarted(SinchClient client) {
             Log.d(TAG, "SinchClient started");
+            if(mCallDelegate != null){
+                 mCallDelegate.callServiceStartupDidSucceed();
+            }
             if (mListener != null) {
                 mListener.onStarted();
             }

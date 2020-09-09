@@ -32,7 +32,9 @@ RCT_EXPORT_MODULE()
              RNEvent.MessageReceived,
              RNEvent.MessageSent,
              RNEvent.MessageDelivered,
-             RNEvent.MessageFailed];
+             RNEvent.MessageFailed,
+             RNEvent.CallServiceSetupDidFail,
+             RNEvent.CallServiceSetupDidSucceed];
 }
 #pragma mark - Setup
 + (void) initialize:(NSDictionary *)properties{
@@ -67,7 +69,11 @@ RCT_EXPORT_METHOD(call:(NSString *)userId callback:(RCTResponseSenderBlock) call
     CallParams *params = [CallParams new];
     params.calleeId = userId;
     NSString *callId = [PhoneActivityManager.instance callWith:params];
-    callback(@[callId]);
+    if(callId == nil){
+        callback(@[@{@"isError":@true, @"message":@"Sinch service was not ready"}]);
+    }else{
+        callback(@[@{@"isError":@false, @"callId":callId}]);
+    }
 }
 
 RCT_EXPORT_METHOD(anwer)
@@ -136,6 +142,15 @@ RCT_EXPORT_METHOD(sendMessage:(NSString *)receiverUserId
     NSLog(@"callDidProgress");
     [self sendEventWithName:RNEvent.CallDidProgress body:nil];
 }
+
+- (void)callServiceStartupDidFailWithMessage:(NSString *)message{
+    [self sendEventWithName:RNEvent.CallServiceSetupDidFail body:message];
+}
+
+- (void)callServiceStartupDidSucceed{
+    [self sendEventWithName:RNEvent.CallServiceSetupDidSucceed body:nil];
+}
+
 
 #pragma mark - MessagesDelegate
 - (void)didReceiveMessageWithMessageId:(NSString * _Nonnull)messageId headers:(NSDictionary * _Nonnull)headers senderId:(NSString * _Nonnull)senderId recipients:(NSArray * _Nonnull)recipients text:(NSString * _Nonnull)text date:(NSDate * _Nonnull)date {
