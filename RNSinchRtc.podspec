@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "RNSinchRtc"
-  s.version      = "0.0.12"
+  s.version      = "0.0.13"
   s.summary      = "RNSinchRtc"
   s.description  = <<-DESC
                   RNSinchRtc
@@ -12,7 +12,8 @@ Pod::Spec.new do |s|
   s.author             = { "author" => "author@domain.cn" }
   s.platform     = :ios, "7.0"
   s.source       = { :git => "https://github.com/author/RNSinchRtc.git", :tag => "v#{s.version}" }
-  s.source_files  = "ios/**/*.{h,m}"
+  s.source_files = "ios/**/*.{h,m,swift}"
+  s.swift_version = "4.2"
   s.requires_arc = true
 
 
