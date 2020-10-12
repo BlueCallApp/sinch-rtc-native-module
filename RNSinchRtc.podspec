@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "RNSinchRtc"
-  s.version      = "0.0.9"
+  s.version      = "0.0.10"
   s.summary      = "RNSinchRtc"
   s.description  = <<-DESC
                   RNSinchRtc
@@ -11,8 +11,8 @@ Pod::Spec.new do |s|
   # s.license      = { :type => "MIT", :file => "FILE_LICENSE" }
   s.author             = { "author" => "author@domain.cn" }
   s.platform     = :ios, "7.0"
-  s.source       = { :git => "https://github.com/author/RNSinchRtc.git", :tag => "0.0.9" }
-  s.source_files  = "RNSinchRtc/**/*.{h,m}"
+  s.source       = { :git => "https://github.com/author/RNSinchRtc.git", :tag => "v#{s.version}" }
+  s.source_files  = "ios/**/*.{h,m}"
   s.requires_arc = true
 
 
