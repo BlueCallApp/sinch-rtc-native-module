@@ -2,7 +2,6 @@
 #import "SINCallKitProvider.h"
 #import "AudioControllerDelegate.h"
 #import <Sinch/Sinch.h>
-#import "RNSinchRtc-Swift.h"
 
 static CXCallEndedReason SINGetCallEndedReason(SINCallEndCause cause) {
   switch (cause) {

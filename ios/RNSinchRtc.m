@@ -1,6 +1,5 @@
 
 #import "RNSinchRtc.h"
-#import "RNSinchRtc-Swift.h"
 
 @interface RNSinchRtc()<CallDelegate, MessagesDelegate>
 
